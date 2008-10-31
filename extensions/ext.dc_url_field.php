@@ -39,7 +39,7 @@ class DC_URL_Field
 	var $settings		= array();
 
 	var $name			= 'URL Field Extension';
-	var $version		= '1.0.3';
+	var $version		= '1.0.4';
 	var $description	= 'Adds a URL field providing various checks.';
 	var $settings_exist	= 'y';
 	var $docs_url		= 'http://www.designchuchi.ch/index.php/blog/comments/url-field-extension-for-expressionengine';
@@ -67,6 +67,7 @@ class DC_URL_Field
 
 		$settings['field_width']	= '';
 		$settings['field_icon']		= '';
+		// $settings['use_curl']		= '';
 
 		return $settings;
 	}
@@ -82,6 +83,7 @@ class DC_URL_Field
 		// default setting values
 		$default_width = '300px';
 		$default_icon  = '/images/icons/link_go.png';
+		// $default_curl  = 'y'
 
 		// hooks array (Thanks to Leevi Graham for this nice idea)
 		$hooks = array(
@@ -94,7 +96,8 @@ class DC_URL_Field
 		$default_settings = serialize(
 			array(
 				'field_width'	=> $default_width,
-				'field_icon'	=> $default_icon
+				'field_icon'	=> $default_icon,
+				// 'use_curl'		=> $default_curl
 			)
 		);
 
@@ -234,8 +237,8 @@ class DC_URL_Field
 			"textarea_block" => "none",
 			"rel_block" => "none",
 			"relationship_type" => "none",
-			"formatting_block" => "none",
-			"formatting_unavailable" => "block",
+			"formatting_block" => "block",
+			"formatting_unavailable" => "none",
 			"direction_available" => "none",
 			"direction_unavailable" => "block"
 		);
@@ -343,16 +346,17 @@ class DC_URL_Field
 
 		return "
 <script type=\"text/javascript\" charset=\"utf-8\">
-function check_url_field( id )
+function check_url_field(id)
 {
-	var url_field = document.getElementById( id );
+	var url_field = document.getElementById(id);
 	var url_value = url_field.value;
+	var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
 
 	if(url_value == '')
 	{
 		alert( '" . $LANG->line('error_empty') . "' );
 	}
-	else if(url_value.indexOf('http://') != 0)
+	else if(!regexp.test(url_value))
 	{
 		alert( '" . $LANG->line('error_protocol') . "' );
 	}
