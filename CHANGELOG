@@ -29,3 +29,9 @@
 * Fixed bug that was introduced with EE 1.6.5 where custom fields with formatting set to NULL
   would have 'xhtml' formatting by default. Fixed this by enabling the formatting menu when
   creating this custom url field.
+
+1.0.5
+=====
+
+* Fixed bug where formatting setting for the field would be ignored for new entries. 
+  http://expressionengine.com/forums/viewthread/96291/
