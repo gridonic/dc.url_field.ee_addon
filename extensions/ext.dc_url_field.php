@@ -39,7 +39,7 @@ class DC_URL_Field
 	var $settings		= array();
 
 	var $name			= 'URL Field Extension';
-	var $version		= '1.0.4';
+	var $version		= '1.0.5';
 	var $description	= 'Adds a URL field providing various checks.';
 	var $settings_exist	= 'y';
 	var $docs_url		= 'http://www.designchuchi.ch/index.php/blog/comments/url-field-extension-for-expressionengine';
@@ -308,6 +308,8 @@ class DC_URL_Field
 
 		if ($row['field_type'] == $this->type)
 		{
+			// add formatting setting
+			$r .= $DSP->input_hidden('field_ft_' . $row['field_id'], $row['field_fmt']);
 
 			//  =============================================
 			//  CSS and JS
