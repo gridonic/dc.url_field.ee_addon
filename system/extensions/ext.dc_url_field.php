@@ -16,8 +16,7 @@ OR NON-INFRINGEMENT.
 IN ADDITION TO THE EE DOCUMENTATION, INSPIRED BY THE
 WONDERFULLY CODED MODULES
 FROM MARK HUOT http://docs.markhuot.com
-AND
-LEEVI GRAHAM http://leevigraham.com.
+AND LEEVI GRAHAM http://leevigraham.com.
 
 DEFAULT ICON FROM FAMFAM
 http://www.famfamfam.com/lab/icons/silk/
@@ -39,7 +38,7 @@ class DC_URL_Field
 	var $settings		= array();
 
 	var $name			= 'URL Field Extension';
-	var $version		= '1.0.5';
+	var $version		= '1.1.0';
 	var $description	= 'Adds a URL field providing various checks.';
 	var $settings_exist	= 'y';
 	var $docs_url		= 'http://www.designchuchi.ch/index.php/blog/comments/url-field-extension-for-expressionengine';
@@ -78,11 +77,11 @@ class DC_URL_Field
 
 	function activate_extension()
 	{
-		global $DB;
+		global $DB, $PREFS;
 
 		// default setting values
 		$default_width = '300px';
-		$default_icon  = '/images/icons/link_go.png';
+		$default_icon  = $PREFS->ini('theme_folder_url').'cp_global_images/link_go.png';
 		// $default_curl  = 'y'
 
 		// hooks array (Thanks to Leevi Graham for this nice idea)
@@ -323,7 +322,7 @@ class DC_URL_Field
 
 			$r .= $DSP->input_text($field_id, $field_data, 10, 128, 'dc_url_field', $this->settings['field_width']);
 			$r .= '<a href="javascript:void(0)" onclick="check_url_field( \'' . $field_id . '\' )">';
-			$r .= '<img src="' . $PREFS->core_ini['site_url'] . $this->settings['field_icon'] . '" style="border:none;" alt="' . $LANG->line('icon_alt') . '" />';
+			$r .= '<img src="' . $this->settings['field_icon'] . '" style="border:none;" alt="' . $LANG->line('icon_alt') . '" />';
 			$r .= '</a>';
 		}
 
